@@ -16,7 +16,7 @@ public class JsonUtils {
     //Key JSON Items and Objects
     JSONObject name = (JSONObject) sandwichJson.getJSONObject("name");
     JSONArray alternativeSandwichNames = (JSONArray) name.getJSONArray("alsoKnownAs");
-    JSONArray ingredients = (JSONArray) name.getJSONArray("ingredients");
+    JSONArray ingredients = (JSONArray) sandwichJson.getJSONArray("ingredients");
 
     //Parsed Items
     String mainName = name.get("mainName").toString();
