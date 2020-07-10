@@ -1,6 +1,7 @@
 package com.udacity.sandwichclub.utils;
 
 import com.udacity.sandwichclub.model.Sandwich;
+import java.util.ArrayList;
 import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -23,8 +24,9 @@ public class JsonUtils {
     String placeOfOrigin = sandwichJson.get("placeOfOrigin").toString();
     String description = sandwichJson.get("description").toString();
     String image = sandwichJson.get("image").toString();
-    List<String> parsedAlternativeSandwichNames = parseJsonArray(alternativeSandwichNames);
-    List<String> parsedIngredients = parseJsonArray(ingredients);
+    List<String> parsedAlternativeSandwichNames =
+        convertJsonArrayToStringList(alternativeSandwichNames);
+    List<String> parsedIngredients = convertJsonArrayToStringList(ingredients);
 
     parsedSandwich.setAlsoKnownAs(parsedAlternativeSandwichNames);
     parsedSandwich.setDescription(description);
@@ -36,14 +38,12 @@ public class JsonUtils {
     return parsedSandwich;
   }
 
-  private static List<String> parseJsonArray(JSONArray jsonArray) throws JSONException {
-    List<String> stringsList = null;
-
+  private static List<String> convertJsonArrayToStringList(JSONArray jsonArray)
+      throws JSONException {
+    List<String> result = new ArrayList<>(jsonArray.length());
     for (int i = 0; i < jsonArray.length(); i++) {
-      JSONObject sandwichName = (JSONObject) jsonArray.get(i);
-      stringsList.add(sandwichName.toString());
+      result.add(jsonArray.getString(i));
     }
-
-    return stringsList;
+    return result;
   }
 }
